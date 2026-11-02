@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DeadworksManaged.Api">
+      <HintPath>D:\SteamLibrary\steamapps\common\Deadlock\game\bin\win64\managed\DeadworksManaged.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="DeadworksManaged.Game">
+      <HintPath>D:\SteamLibrary\steamapps\common\Deadlock\game\bin\win64\managed\DeadworksManaged.Game.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>D:\SteamLibrary\steamapps\common\Deadlock\game\bin\win64\managed\Google.Protobuf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="DeployToGame" AfterTargets="Build">
+    <ItemGroup>
+      <DeployFiles Include="$(OutputPath)BareKnuckleMod.dll;$(OutputPath)BareKnuckleMod.pdb" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(DeployFiles)"
+      DestinationFolder="D:\SteamLibrary\steamapps\common\Deadlock\game\bin\win64\managed\plugins"
+      SkipUnchangedFiles="false"
+      Retries="0"
+      ContinueOnError="WarnAndContinue" />
+  </Target>
+
+</Project>
